@@ -177,10 +177,10 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Services
                     Plugin.PluginLogger.LogError("ERROR: An orphaned bookmark has been found! This is the result of another error!");
                     var controller = RecipeBook.Instance.bookmarkControllersGroupController.controllers.First().bookmarkController;
                     //Move the now empty bookmark out of the sub group
-                    var spawnPosition = SubRailService.GetSpawnPosition(controller, BookmarkController.SpaceType.Large)
-                                        ?? SubRailService.GetSpawnPosition(controller, BookmarkController.SpaceType.Medium)
-                                        ?? SubRailService.GetSpawnPosition(controller, BookmarkController.SpaceType.Small)
-                                        ?? SubRailService.GetSpawnPosition(controller, BookmarkController.SpaceType.Min);
+                    var spawnPosition = SubRailService.GetSpawnPosition(controller, BookmarkSpaceType.Large)
+                                        ?? SubRailService.GetSpawnPosition(controller, BookmarkSpaceType.Medium)
+                                        ?? SubRailService.GetSpawnPosition(controller, BookmarkSpaceType.Small)
+                                        ?? SubRailService.GetSpawnPosition(controller, BookmarkSpaceType.Min);
                     if (spawnPosition == null)
                     {
                         Plugin.PluginLogger.LogError("DoOrphanedBookmarkFailsafe - There is no empty space for bookmark! Change settings!");
@@ -258,7 +258,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Services
             if (Managers.Cursor.grabbedInteractiveItem is BookmarkButtonInactive) return;
             var recipeBook = RecipeBook.Instance;
             var pagesCount = recipeBook.GetPagesCount();
-            recipeBook.curlPageController.HotkeyClicked(nextIndex > recipeBook.currentPageIndex
+            recipeBook.curlPageController.HotkeyClicked(() => nextIndex > recipeBook.currentPageIndex
                                                             ? recipeBook.currentPageIndex.Distance(nextIndex) <= nextIndex.Distance(recipeBook.currentPageIndex + pagesCount)
                                                             : recipeBook.currentPageIndex.Distance(nextIndex) >= recipeBook.currentPageIndex.Distance(nextIndex + pagesCount),
                                                         nextPageIndex: nextIndex);

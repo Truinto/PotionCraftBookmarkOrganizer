@@ -72,7 +72,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
             transform.localEulerAngles = Vector3.zero;
             var pageRenderer = subRailPages.GetComponentInChildren<SpriteRenderer>();
             subRail.size = new Vector2(pageRenderer.size.y - 0.5f, 0.7f);
-            subRail.direction = BookmarkRail.Direction.BottomToTop;
+            subRail.direction = BookmarkRailDirection.BottomToTop;
             subRail.bottomLine = typeof(BookmarkRail).GetMethod("GetBottomLine", BindingFlags.Instance | BindingFlags.NonPublic)
                                                      .Invoke(subRail, null) as Tuple<Vector2, Vector2>;
             typeof(BookmarkRail).GetMethod("OnValidate", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(subRail, null);
@@ -121,7 +121,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
             transform.localPosition = Vector3.zero;
             transform.localEulerAngles = Vector3.zero;
             invisiRail.size = new Vector2(100f, 0.7f);
-            invisiRail.direction = BookmarkRail.Direction.BottomToTop;
+            invisiRail.direction = BookmarkRailDirection.BottomToTop;
             invisiRail.bottomLine = typeof(BookmarkRail).GetMethod("GetBottomLine", BindingFlags.Instance | BindingFlags.NonPublic)
                                                         .Invoke(invisiRail, null) as Tuple<Vector2, Vector2>;
             typeof(BookmarkRail).GetMethod("OnValidate", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(invisiRail, null);

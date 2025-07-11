@@ -38,10 +38,10 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
             //Set the parent recipe of this group to be active
             var recipeIndex = RecipeBookService.GetBookmarkStorageRecipeIndexForSelectedRecipe();
             var parentBookmark = bookmark.rail.bookmarkController.GetBookmarkByIndex(recipeIndex);
-            bookmark.rail.bookmarkController.bookmarkControllersGroupController.SetActiveBookmark(parentBookmark);
+            bookmark.rail.bookmarkController.bookmarkControllersGroupController.SetActiveBookmark(parentBookmark, isBookmarkClicked: false);
 
             //update the visual state of the static bookmark
-            bookmark.CurrentVisualState = Bookmark.VisualState.Active;
+            bookmark.CurrentVisualState = BookmarkVisualState.Active;
             bookmark.activeBookmarkButton.slot.Selected = true;
             if (bookmark.activeBookmarkButton.thisCollider.bounds.Contains(Managers.Input.controlsProvider.CurrentMouseWorldPosition))
                 bookmark.activeBookmarkButton.SetHovered(true);

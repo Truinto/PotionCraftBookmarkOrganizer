@@ -23,16 +23,16 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
         [HarmonyPatch(typeof(Bookmark), "UpdateMovingState")]
         public class Bookmark_UpdateMovingState
         {
-            static bool Prefix(Bookmark __instance, Bookmark.MovingState value)
+            static bool Prefix(Bookmark __instance, BookmarkMovingState value)
             {
                 return Ex.RunSafe(() => DisableGrabbingForStaticBookmark(__instance, value));
             }
         }
 
-        private static bool DisableGrabbingForStaticBookmark(Bookmark instance, Bookmark.MovingState value)
+        private static bool DisableGrabbingForStaticBookmark(Bookmark instance, BookmarkMovingState value)
         {
             if (instance != StaticStorage.StaticBookmark) return true;
-            if (value == Bookmark.MovingState.Moving) return false;
+            if (value == BookmarkMovingState.Moving) return false;
             return true;
         }
     }

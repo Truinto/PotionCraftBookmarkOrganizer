@@ -31,7 +31,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
         [HarmonyPatch(typeof(Bookmark), "UpdateMovingState")]
         public class Bookmark_UpdateMovingState
         {
-            static void Postfix(Bookmark __instance, Bookmark.MovingState value)
+            static void Postfix(Bookmark __instance, BookmarkMovingState value)
             {
                 Ex.RunSafe(() => BookmarkMovingStateChanged(__instance, value));
             }
@@ -46,11 +46,11 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
             }
         }
 
-        private static void BookmarkMovingStateChanged(Bookmark instance, Bookmark.MovingState value)
+        private static void BookmarkMovingStateChanged(Bookmark instance, BookmarkMovingState value)
         {
             switch (value)
             {
-                case Bookmark.MovingState.Idle:
+                case BookmarkMovingState.Idle:
                     if (!ShouldSwapOnRelease) break;
                     //Get rid of our preview
                     ShouldSwapOnRelease = false;
@@ -60,7 +60,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
                     //Promote the sub bookmark to parent and update the static bookmark
                     RecipeBookService.PromoteIndexToParent(instance.rail.bookmarkController.GetAllBookmarksList().IndexOf(instance));
                     break;
-                case Bookmark.MovingState.Moving:
+                case BookmarkMovingState.Moving:
                     SavedBookmarkPosition = instance.GetNormalizedPosition();
                     break;
             }
@@ -68,7 +68,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
 
         private static void UpdatePreviewForNewBookmarkLocation(Bookmark instance)
         {
-            if (instance.CurrentMovingState == Bookmark.MovingState.Idle) return;
+            if (instance.CurrentMovingState == BookmarkMovingState.Idle) return;
             if (instance.rail != StaticStorage.SubRail)
             {
                 if (ShouldSwapOnRelease)
@@ -85,7 +85,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
             if (groupIndex != RecipeBookService.GetBookmarkStorageRecipeIndexForSelectedRecipe()) return;
             //Only allow swaps for sub bookmarks
             if (!indexIsParent) return;
-            if (instance.CurrentMovingState == Bookmark.MovingState.Idle) return;
+            if (instance.CurrentMovingState == BookmarkMovingState.Idle) return;
             var mouseWorldPosition = Managers.Input.controlsProvider.CurrentMouseWorldPosition;
             var swapAboveYWorld = StaticStorage.SubRail.transform.position.y + SwapAboveY;
             var dontSwapBelowXWorld = StaticStorage.SubRail.transform.position.x - DontSwapBelowX;

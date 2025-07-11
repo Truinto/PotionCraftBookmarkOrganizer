@@ -42,10 +42,10 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
                 Tuple<BookmarkRail, Vector2> defaultSpawnPosition = null;
                 allSubBookmarks.ForEach(bookmark =>
                 {
-                    var spawnPosition = GetSpawnPosition(instance, SpaceType.Large, subBookmarkPositions)
-                                        ?? GetSpawnPosition(instance, SpaceType.Medium, subBookmarkPositions)
-                                        ?? GetSpawnPosition(instance, SpaceType.Small, subBookmarkPositions)
-                                        ?? GetSpawnPosition(instance, SpaceType.Min, subBookmarkPositions);
+                    var spawnPosition = GetSpawnPosition(instance, BookmarkSpaceType.Large, subBookmarkPositions)
+                                        ?? GetSpawnPosition(instance, BookmarkSpaceType.Medium, subBookmarkPositions)
+                                        ?? GetSpawnPosition(instance, BookmarkSpaceType.Small, subBookmarkPositions)
+                                        ?? GetSpawnPosition(instance, BookmarkSpaceType.Min, subBookmarkPositions);
 
                     if (defaultSpawnPosition == null)
                     {
@@ -105,10 +105,10 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
                     //Make sure we never put two bookmarks at exactly the same position to ensure reliable indexing
                     defaultSpawnPosition = MoveDefaultSpawnPosition(defaultSpawnPosition);
 
-                    var spawnPosition = GetSpawnPosition(instance, SpaceType.Large, subBookmarkPositions)
-                                    ?? GetSpawnPosition(instance, SpaceType.Medium, subBookmarkPositions)
-                                    ?? GetSpawnPosition(instance, SpaceType.Small, subBookmarkPositions)
-                                    ?? GetSpawnPosition(instance, SpaceType.Min, subBookmarkPositions)
+                    var spawnPosition = GetSpawnPosition(instance, BookmarkSpaceType.Large, subBookmarkPositions)
+                                    ?? GetSpawnPosition(instance, BookmarkSpaceType.Medium, subBookmarkPositions)
+                                    ?? GetSpawnPosition(instance, BookmarkSpaceType.Small, subBookmarkPositions)
+                                    ?? GetSpawnPosition(instance, BookmarkSpaceType.Min, subBookmarkPositions)
                                     ?? defaultSpawnPosition
                                     ?? new Tuple<BookmarkRail, Vector2>(instance.rails[0], Vector2.zero);
 
@@ -230,7 +230,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
             }
             return false;
         }
-        public static Tuple<BookmarkRail, Vector2> GetSpawnPosition(BookmarkController bookmarkController, SpaceType spaceType, Dictionary<BookmarkRail, List<(SerializedBookmark, int)>> subBookmarks)
+        public static Tuple<BookmarkRail, Vector2> GetSpawnPosition(BookmarkController bookmarkController, BookmarkSpaceType spaceType, Dictionary<BookmarkRail, List<(SerializedBookmark, int)>> subBookmarks)
         {
             var nonSpecialRails = bookmarkController.rails.Except(new[] { StaticStorage.SubRail, StaticStorage.InvisiRail }).ToList();
             foreach (var rail in nonSpecialRails)
@@ -248,7 +248,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
             return null;
         }
 
-        private static List<MinMaxFloat> GetEmptySegments(BookmarkRail rail, SpaceType spaceType, Dictionary<BookmarkRail, List<(SerializedBookmark, int)>> subBookmarks)
+        private static List<MinMaxFloat> GetEmptySegments(BookmarkRail rail, BookmarkSpaceType spaceType, Dictionary<BookmarkRail, List<(SerializedBookmark, int)>> subBookmarks)
         {
             var emptySegments = rail.GetEmptySegments(spaceType);
             if (!subBookmarks.ContainsKey(rail)) return emptySegments;

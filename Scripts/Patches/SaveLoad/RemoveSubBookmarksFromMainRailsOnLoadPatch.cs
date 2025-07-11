@@ -156,10 +156,10 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
 
             while (bookmarkCount < recipeCount)
             {
-                var spawnPosition = SubRailService.GetSpawnPosition(instance, BookmarkController.SpaceType.Large)
-                                   ?? SubRailService.GetSpawnPosition(instance, BookmarkController.SpaceType.Medium)
-                                   ?? SubRailService.GetSpawnPosition(instance, BookmarkController.SpaceType.Small)
-                                   ?? SubRailService.GetSpawnPosition(instance, BookmarkController.SpaceType.Min);
+                var spawnPosition = SubRailService.GetSpawnPosition(instance, BookmarkSpaceType.Large)
+                                   ?? SubRailService.GetSpawnPosition(instance, BookmarkSpaceType.Medium)
+                                   ?? SubRailService.GetSpawnPosition(instance, BookmarkSpaceType.Small)
+                                   ?? SubRailService.GetSpawnPosition(instance, BookmarkSpaceType.Min);
                 if (spawnPosition == null)
                 {
                     Plugin.PluginLogger.LogError("There is no empty space for bookmark! Change settings!");
@@ -180,10 +180,10 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
 
                 Plugin.PluginLogger.LogError($"ERROR: Orphaned bookmark found at index: {index}. Moving orphaned bookmark to main rails!");
 
-                var spawnPosition = SubRailService.GetSpawnPosition(instance, BookmarkController.SpaceType.Large)
-                                    ?? SubRailService.GetSpawnPosition(instance, BookmarkController.SpaceType.Medium)
-                                    ?? SubRailService.GetSpawnPosition(instance, BookmarkController.SpaceType.Small)
-                                    ?? SubRailService.GetSpawnPosition(instance, BookmarkController.SpaceType.Min)
+                var spawnPosition = SubRailService.GetSpawnPosition(instance, BookmarkSpaceType.Large)
+                                    ?? SubRailService.GetSpawnPosition(instance, BookmarkSpaceType.Medium)
+                                    ?? SubRailService.GetSpawnPosition(instance, BookmarkSpaceType.Small)
+                                    ?? SubRailService.GetSpawnPosition(instance, BookmarkSpaceType.Min)
                                     ?? new Tuple<BookmarkRail, Vector2>(instance.rails[0], Vector2.zero);
                 SubRailService.ConnectBookmarkToRail(spawnPosition.Item1, invisiBookmark, spawnPosition.Item2);
                 allBookmarkList = instance.GetAllBookmarksList();

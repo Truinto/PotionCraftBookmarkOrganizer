@@ -52,7 +52,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
             {
                 Plugin.PluginLogger.LogMessage("Adding bookmark");
                 SubRailService.ConnectBookmarkToRail(StaticStorage.SubRail, savedBookmark.bookmark, savedBookmark.savedBookmark.SerializedBookmark.position);
-                savedBookmark.bookmark.CurrentVisualState = savedBookmark.isActive ? Bookmark.VisualState.Active : Bookmark.VisualState.Inactive;
+                savedBookmark.bookmark.CurrentVisualState = savedBookmark.isActive ? BookmarkVisualState.Active : BookmarkVisualState.Inactive;
             });
         }
     }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using static PotionCraft.ObjectBased.UIElements.Bookmarks.Bookmark;
+using PotionCraft.ObjectBased.UIElements.Bookmarks;
 
 namespace PotionCraftBookmarkOrganizer.Scripts.Storage
 {

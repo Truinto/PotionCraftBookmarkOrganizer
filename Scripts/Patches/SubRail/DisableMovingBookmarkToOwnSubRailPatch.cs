@@ -34,7 +34,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
         {
             if (!StaticStorage.IsLoaded) return true;
             if (instance != StaticStorage.SubRail) return true;
-            if (bookmark.CurrentMovingState == Bookmark.MovingState.Idle) return true;
+            if (bookmark.CurrentMovingState == BookmarkMovingState.Idle) return true;
             var bookmarksListBeforeMoving = typeof(Bookmark).GetField("bookmarksListBeforeMoving", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(bookmark) as List<Bookmark>;
             var bookmarkIndex = bookmarksListBeforeMoving.IndexOf(bookmark);
 

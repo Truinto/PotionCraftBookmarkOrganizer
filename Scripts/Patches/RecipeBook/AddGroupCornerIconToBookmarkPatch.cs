@@ -103,12 +103,12 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
             if (cornerGameObject == null) return;
             var activeScale = 1.03f;
             var grabbedScale = 0.97f;
-            cornerGameObject.transform.localScale = bookmark.CurrentVisualState == Bookmark.VisualState.Active 
+            cornerGameObject.transform.localScale = bookmark.CurrentVisualState == BookmarkVisualState.Active 
                                                         ? new Vector3(activeScale, activeScale, activeScale) 
                                                         : isGrabbed
                                                             ? new Vector3(grabbedScale, grabbedScale, grabbedScale) 
                                                             : Vector3.one;
-            cornerGameObject.transform.localPosition = CornerIconLocation + (bookmark.CurrentVisualState == Bookmark.VisualState.Active
+            cornerGameObject.transform.localPosition = CornerIconLocation + (bookmark.CurrentVisualState == BookmarkVisualState.Active
                                                                                 ? new Vector2(0.01f, 0.01f)
                                                                                 : isGrabbed
                                                                                     ? new Vector2(-0.006f, -0.006f)

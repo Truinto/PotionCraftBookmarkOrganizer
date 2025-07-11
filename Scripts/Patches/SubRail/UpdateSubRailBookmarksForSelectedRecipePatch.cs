@@ -82,7 +82,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
         {
             //If the page has been clicked and dragged we but the page was not pulled far enough for a page flip we need to clean up here
             if (instance.HasPageGotToBeFlippedOnRelease(releasedCorner.corner)) return true;
-            if (releasedCorner.clickGrabHandler.ClickCondition()) return true;
+            if (releasedCorner.clickGrabHandler.IsClick()) return true;
             CleanupAfterHoveredPageButton();
             return true;
         }

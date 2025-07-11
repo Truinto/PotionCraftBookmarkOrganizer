@@ -50,7 +50,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Services
             {
                 saved.ForEach(savedBookmark =>
                 {
-                    savedBookmark.bookmark.CurrentVisualState = savedBookmark.isActive ? Bookmark.VisualState.Active : Bookmark.VisualState.Inactive;
+                    savedBookmark.bookmark.CurrentVisualState = savedBookmark.isActive ? BookmarkVisualState.Active : BookmarkVisualState.Inactive;
                 });
                 return;
             }
@@ -68,7 +68,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Services
             saved.ForEach(savedBookmark =>
             {
                 ConnectBookmarkToRail(StaticStorage.SubRail, savedBookmark.bookmark, savedBookmark.savedBookmark.SerializedBookmark.position);
-                savedBookmark.bookmark.CurrentVisualState = savedBookmark.isActive ? Bookmark.VisualState.Active : Bookmark.VisualState.Inactive;
+                savedBookmark.bookmark.CurrentVisualState = savedBookmark.isActive ? BookmarkVisualState.Active : BookmarkVisualState.Inactive;
             });
         }
 
@@ -81,7 +81,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Services
 
         public static Vector2? GetNextEmptySpaceOnRail(BookmarkRail rail, bool getMax = false)
         {
-            var emptySegments = rail.GetEmptySegments(BookmarkController.SpaceType.Min);
+            var emptySegments = rail.GetEmptySegments(BookmarkSpaceType.Min);
             var spawnHeight = typeof(BookmarkController).GetField("spawnHeight", BindingFlags.NonPublic | BindingFlags.Instance)
                                                         .GetValue(rail.bookmarkController) as MinMaxFloat;
             if (emptySegments.Any()) return new Vector2((rail.inverseSpawnOrder || getMax) ? emptySegments.Last().max : emptySegments.First().min, spawnHeight.min);
@@ -103,7 +103,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Services
             StaticStorage.StaticBookmark.gameObject.SetActive(true);
             var sourceBookmark = recipeBook.bookmarkControllersGroupController.GetBookmarkByIndex(index);
             StaticStorage.StaticBookmark.SetBookmarkContent(sourceBookmark.activeBookmarkButton.normalSpriteIcon, sourceBookmark.inactiveBookmarkButton.normalSpriteIcon, null);
-            StaticStorage.StaticBookmark.CurrentVisualState = isparentIndex ? Bookmark.VisualState.Inactive : Bookmark.VisualState.Active;
+            StaticStorage.StaticBookmark.CurrentVisualState = isparentIndex ? BookmarkVisualState.Inactive : BookmarkVisualState.Active;
         }
 
         public static int GetPagesCountWithoutSpecialRails()
@@ -139,8 +139,8 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Services
             for (var i = 0; i < bookmarks.Count; i++)
             {
                 bookmarks[i].CurrentVisualState = i == selectedParentIndex 
-                                                    ? Bookmark.VisualState.Active 
-                                                    : Bookmark.VisualState.Inactive;
+                                                    ? BookmarkVisualState.Active 
+                                                    : BookmarkVisualState.Inactive;
             }
         }
 
@@ -154,12 +154,12 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Services
             {
                 var trueIndex = i + startingSubRailIndex;
                 bookmarks[i].CurrentVisualState = trueIndex == RecipeBook.Instance.currentPageIndex
-                                                        ? Bookmark.VisualState.Active
-                                                        : Bookmark.VisualState.Inactive;
+                                                        ? BookmarkVisualState.Active
+                                                        : BookmarkVisualState.Inactive;
             }
         }
 
-        public static Tuple<BookmarkRail, Vector2> GetSpawnPosition(BookmarkController bookmarkController, SpaceType spaceType)
+        public static Tuple<BookmarkRail, Vector2> GetSpawnPosition(BookmarkController bookmarkController, BookmarkSpaceType spaceType)
         {
             var nonSpecialRails = bookmarkController.rails.Except(new[] { StaticStorage.SubRail, StaticStorage.InvisiRail }).ToList();
             foreach (var rail in nonSpecialRails)
