@@ -20,7 +20,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
 {
     public class HideStaticRailsAndShowRealRailAfterFlipAnimationPatch
     { 
-        [HarmonyPatch(typeof(CurlPageController), "OnPageFlippingEnd")]
+        [HarmonyPatch(typeof(CurlPageController), nameof(CurlPageController.OnPageFlippingEnd))]
         public class CurlPageController_OnPageFlippingEnd
         {
             static void Postfix(CurlPageController __instance)

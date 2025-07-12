@@ -6,7 +6,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
 {
     public class RetrieveStateJsonStringPatch
     {
-        [HarmonyPatch(typeof(File), "Load")]
+        [HarmonyPatch(typeof(File), nameof(File.Load))]
         public class File_Load
         {
             static bool Prefix(File __instance)

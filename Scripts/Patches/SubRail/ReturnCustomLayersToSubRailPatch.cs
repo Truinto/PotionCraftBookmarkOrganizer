@@ -17,7 +17,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
     /// </summary>
     public class ReturnCustomLayersToSubRailPatch
     { 
-        [HarmonyPatch(typeof(BookmarkController), "GetLayer")]
+        [HarmonyPatch(typeof(BookmarkController), nameof(BookmarkController.GetLayer))]
         public class BookmarkController_GetLayer
         {
             static bool Prefix(ref BookmarkLayer __result, BookmarkController __instance, int index)

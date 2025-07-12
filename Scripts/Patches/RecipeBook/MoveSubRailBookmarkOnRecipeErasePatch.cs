@@ -18,7 +18,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
 {
     public class MoveSubRailBookmarkOnRecipeErasePatch
     { 
-        [HarmonyPatch(typeof(RecipeBook), "EraseRecipe")]
+        [HarmonyPatch(typeof(RecipeBook), nameof(RecipeBook.EraseRecipe))]
         public class RecipeBook_EraseRecipe
         {
             static bool Prefix(RecipeBook __instance, ref IRecipeBookPageContent recipe)
@@ -32,7 +32,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
             }
         }
 
-        [HarmonyPatch(typeof(Book), "GoToTheFirstNotEmptyPage")]
+        [HarmonyPatch(typeof(Book), nameof(Book.GoToTheFirstNotEmptyPage))]
         public class Book_GoToTheFirstNotEmptyPage
         {
             static bool Prefix(Book __instance)

@@ -20,7 +20,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
     /// </summary>
     public class DisableGrabbingForInactiveStaticBookmarkPatch
     { 
-        [HarmonyPatch(typeof(BookmarkButtonInactive), "OnGrabPrimary")]
+        [HarmonyPatch(typeof(BookmarkButtonInactive), nameof(BookmarkButtonInactive.OnGrabPrimary))]
         public class InactiveBookmarkButton_OnGrabPrimary
         {
             static bool Prefix(BookmarkButtonInactive __instance)

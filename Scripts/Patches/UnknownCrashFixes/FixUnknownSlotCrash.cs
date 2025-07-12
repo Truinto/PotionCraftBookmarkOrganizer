@@ -4,8 +4,8 @@ using PotionCraft.Assemblies.GamepadNavigation;
 namespace PotionCraftBookmarkOrganizer.Scripts.Patches
 {
     public class FixUnknownSlotCrash
-    { 
-        [HarmonyPatch(typeof(Slot), "SaveSettingsFromChild")]
+    {
+        [HarmonyPatch(typeof(Slot), nameof(Slot.SaveSettingsFromChild))]
         public class Slot_SaveSettingsFromChild
         {
             static bool Prefix(Slot __instance)
@@ -20,6 +20,5 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
             if (instance.cursorAnchorSubObject.transform == null) return false;
             return true;
         }
-
     }
 }

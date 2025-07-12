@@ -22,7 +22,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
     /// </summary>
     public class DisallowSpawningOfNewBookmarksOnSpecialRailsPatch
     { 
-        [HarmonyPatch(typeof(BookmarkController), "AddNewBookmark")]
+        [HarmonyPatch(typeof(BookmarkController), nameof(BookmarkController.AddNewBookmark))]
         public class Bookmark_AddNewBookmark
         {
             static bool Prefix()
@@ -35,7 +35,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
             }
         }
 
-        [HarmonyPatch(typeof(BookmarkRail), "GetEmptySegments")]
+        [HarmonyPatch(typeof(BookmarkRail), nameof(BookmarkRail.GetEmptySegments))]
         public class BookmarkRail_GetEmptySegments
         {
             static bool Prefix(ref List<MinMaxFloat> __result, BookmarkRail __instance)

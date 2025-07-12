@@ -7,7 +7,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
 {
     public class ClearFileSpecificDataOnFileLoadPatch
     {
-        [HarmonyPatch(typeof(SaveLoadManager), "LoadFile")]
+        [HarmonyPatch(typeof(SaveLoadManager), nameof(SaveLoadManager.LoadFile))]
         public class SaveLoadManager_LoadFile
         {
             static bool Prefix()

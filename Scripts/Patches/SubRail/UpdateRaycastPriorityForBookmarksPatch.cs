@@ -14,7 +14,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
 {
     public class UpdateRaycastPriorityForBookmarksPatch
     { 
-        [HarmonyPatch(typeof(BookmarkRail), "UpdateLayers")]
+        [HarmonyPatch(typeof(BookmarkRail), nameof(BookmarkRail.UpdateLayers))]
         public class BookmarkRail_UpdateLayers
         {
             static bool Prefix(BookmarkRail __instance)

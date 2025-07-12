@@ -17,7 +17,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
 {
     public class SetupBookmarkMaskingPatch
     { 
-        [HarmonyPatch(typeof(Bookmark), "Awake")]
+        [HarmonyPatch(typeof(Bookmark), nameof(Bookmark.Awake))]
         public class Bookmark_Awake
         {
             static void Postfix(Bookmark __instance)

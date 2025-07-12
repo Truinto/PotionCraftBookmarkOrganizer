@@ -24,7 +24,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
     { 
         //This method is chosen because it runs during the RecipeBookLeftPageContent load callback.
         //This gives access to the left page content and is ensured to run after the recipe book is setup.
-        [HarmonyPatch(typeof(AlchemySubstanceCustomizationPanel), "OnPanelContainerStart")]
+        [HarmonyPatch(typeof(AlchemySubstanceCustomizationPanel), nameof(AlchemySubstanceCustomizationPanel.OnPanelContainerStart))]
         public class PotionCustomizationPanel_OnPanelContainerStart
         {
             static void Postfix(AlchemySubstanceCustomizationPanel __instance)
@@ -67,15 +67,14 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
             subRailBookmarkContainer.transform.localPosition = Vector2.zero;
             subRail.bookmarksContainer = subRailBookmarkContainer.transform;
             var transform = StaticStorage.SubRailLayers.First();
-            typeof(BookmarkRail).GetField("activeLayer", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(subRail, transform);
+            subRail.activeLayer = transform;
             transform.localPosition = Vector3.zero;
             transform.localEulerAngles = Vector3.zero;
             var pageRenderer = subRailPages.GetComponentInChildren<SpriteRenderer>();
             subRail.size = new Vector2(pageRenderer.size.y - 0.5f, 0.7f);
             subRail.direction = BookmarkRailDirection.BottomToTop;
-            subRail.bottomLine = typeof(BookmarkRail).GetMethod("GetBottomLine", BindingFlags.Instance | BindingFlags.NonPublic)
-                                                     .Invoke(subRail, null) as Tuple<Vector2, Vector2>;
-            typeof(BookmarkRail).GetMethod("OnValidate", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(subRail, null);
+            subRail.bottomLine = subRail.GetBottomLine();
+            subRail.OnValidate();
 
             subRail.bookmarkController.rails.Add(subRail);
 
@@ -117,14 +116,13 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
             bookmarkContainer.transform.localPosition = Vector2.zero;
             invisiRail.bookmarksContainer = bookmarkContainer.transform;
             var transform = bookmarkLayer.transform;
-            typeof(BookmarkRail).GetField("activeLayer", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(invisiRail, transform);
+            invisiRail.activeLayer = transform;
             transform.localPosition = Vector3.zero;
             transform.localEulerAngles = Vector3.zero;
             invisiRail.size = new Vector2(100f, 0.7f);
             invisiRail.direction = BookmarkRailDirection.BottomToTop;
-            invisiRail.bottomLine = typeof(BookmarkRail).GetMethod("GetBottomLine", BindingFlags.Instance | BindingFlags.NonPublic)
-                                                        .Invoke(invisiRail, null) as Tuple<Vector2, Vector2>;
-            typeof(BookmarkRail).GetMethod("OnValidate", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(invisiRail, null);
+            invisiRail.bottomLine = invisiRail.GetBottomLine();
+            invisiRail.OnValidate();
 
             invisiRail.bookmarkController.rails.Add(invisiRail);
         }
@@ -142,8 +140,8 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
             if (maskSprite == null) return (null, null);
 
 
-            var decorController = typeof(RecipeBookLeftPageContent).GetField("titleDecorController", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(page) as RecipeBookLeftPageTitleDecorController;
-            var copyFromRenderer = typeof(RecipeBookLeftPageTitleDecorController).GetField("decorLeftRenderer", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(decorController) as SpriteRenderer;
+            var decorController = page.titleDecorController;
+            var copyFromRenderer = decorController.decorLeftRenderer;
             var sortingLayerId = copyFromRenderer.sortingLayerID;
             var sortingLayerName = copyFromRenderer.sortingLayerName;
             var layerCount = 4;
@@ -274,26 +272,16 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
 
             //Update the panel settings so these changes stick when switching pages
             var settings = new List<RecipeBookCustomizationPanelSettings>();
-            var panelTraverse = Traverse.Create(parentPage.customizationPanelController);
-            settings.Add(panelTraverse.Field<RecipeBookCustomizationPanelSettings>("potionCustomizationPanelSettings").Value);
-            settings.Add(panelTraverse.Field<RecipeBookCustomizationPanelSettings>("legendarySubstanceCustomizationPanelSettings").Value);
+            settings.Add(parentPage.customizationPanelController.potionCustomizationPanelSettings);
+            settings.Add(parentPage.customizationPanelController.legendarySubstanceCustomizationPanelSettings);
 
             settings.ForEach(setting =>
             {
-                var settingsTraverse = Traverse.Create(setting);
-                void setXValue(string name, Vector2 newValue)
-                {
-                    var fieldTraverse = settingsTraverse.Field(name);
-                    var existingValue = fieldTraverse.GetValue<Vector2>();
-                    fieldTraverse.SetValue(new Vector2(newValue.x, existingValue.y));
-                }
-
-                setXValue("descriptionBackgroundLeftPosition", descriptionBorderLeft.transform.localPosition);
-                setXValue("descriptionBackgroundRightPosition", descriptionBorderRight.transform.localPosition);
-                setXValue("descriptionBackgroundTopPosition", descriptionBorderTop.transform.localPosition);
-                setXValue("descriptionTopPosition", descriptionTop.transform.localPosition);
-                setXValue("maskablePosition", inputFieldCanvasLines.transform.localPosition);
-
+                setting.descriptionBackgroundLeftPosition.x = descriptionBorderLeft.transform.localPosition.x;
+                setting.descriptionBackgroundRightPosition.x = descriptionBorderRight.transform.localPosition.x;
+                setting.descriptionBackgroundTopPosition.x = descriptionBorderTop.transform.localPosition.x;
+                setting.descriptionTopPosition.x = descriptionTop.transform.localPosition.x;
+                setting.maskablePosition.x = inputFieldCanvasLines.transform.localPosition.x;
             });
         }
     }

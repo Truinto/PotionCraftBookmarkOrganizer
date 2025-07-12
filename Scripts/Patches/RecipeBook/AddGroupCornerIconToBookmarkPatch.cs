@@ -18,7 +18,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
         private static Vector2 CornerIconLocation = new Vector2(0.245f, 0.675f);
 
 
-        [HarmonyPatch(typeof(Bookmark), "UpdateVisualState")]
+        [HarmonyPatch(typeof(Bookmark), nameof(Bookmark.UpdateVisualState))]
         public class Bookmark_UpdateVisualState
         {
             static void Postfix(Bookmark __instance)
@@ -27,7 +27,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
             }
         }
 
-        [HarmonyPatch(typeof(BookmarkButtonInactive), "OnGrabPrimary")]
+        [HarmonyPatch(typeof(BookmarkButtonInactive), nameof(BookmarkButtonInactive.OnGrabPrimary))]
         public class InactiveBookmarkButton_OnGrabPrimary
         {
             static void Postfix(BookmarkButtonInactive __instance)
@@ -36,7 +36,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
             }
         }
 
-        [HarmonyPatch(typeof(BookmarkButtonInactive), "OnReleasePrimary")]
+        [HarmonyPatch(typeof(BookmarkButtonInactive), nameof(BookmarkButtonInactive.OnReleasePrimary))]
         public class InactiveBookmarkButton_OnReleasePrimary
         {
             static void Postfix(BookmarkButtonInactive __instance)
@@ -45,7 +45,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
             }
         }
 
-        [HarmonyPatch(typeof(RecipeBook), "UpdateBookmarkIcon")]
+        [HarmonyPatch(typeof(RecipeBook), nameof(RecipeBook.UpdateBookmarkIcon))]
         public class RecipeBook_UpdateBookmarkIcon
         {
             static void Postfix(RecipeBook __instance, int index)

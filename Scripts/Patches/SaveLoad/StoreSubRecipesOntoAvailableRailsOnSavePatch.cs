@@ -22,7 +22,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
 {
     public class StoreSubRecipesOntoAvailableRailsOnSavePatch
     { 
-        [HarmonyPatch(typeof(BookmarkController), "GetSerialized")]
+        [HarmonyPatch(typeof(BookmarkController), nameof(BookmarkController.GetSerialized))]
         public class BookmarkController_GetSerialized
         {
             static bool Prefix(ref SerializedBookmarkController __result, BookmarkController __instance)
@@ -239,9 +239,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
                 if (emptySegments.Any())
                 {
                     var x = rail.inverseSpawnOrder ? emptySegments.Last().max : emptySegments.First().min;
-                    var spawnHeight = typeof(BookmarkController).GetField("spawnHeight", BindingFlags.NonPublic | BindingFlags.Instance)
-                                                                .GetValue(bookmarkController) as MinMaxFloat;
-                    var y = spawnHeight.GetRandom();
+                    var y = bookmarkController.spawnHeight.GetRandom();
                     return new Tuple<BookmarkRail, Vector2>(rail, new Vector2(x, y));
                 }
             }

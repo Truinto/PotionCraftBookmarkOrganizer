@@ -14,7 +14,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
 {
     public class LoadBookmarkGroupingDataFromSaveFilePatch
     { 
-        [HarmonyPatch(typeof(SaveLoadManager), "LoadProgressState")]
+        [HarmonyPatch(typeof(SaveLoadManager), nameof(SaveLoadManager.LoadProgressState))]
         public class SaveLoadManager_LoadProgressState
         {
             static bool Prefix()

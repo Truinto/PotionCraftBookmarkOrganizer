@@ -21,7 +21,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
 {
     public class DisableRecipeBookHotkeysWhileDraggingBookmarkPatch
     { 
-        [HarmonyPatch(typeof(CurlPageCornerController), "FlipPage")]
+        [HarmonyPatch(typeof(CurlPageCornerController), nameof(CurlPageCornerController.FlipPage))]
         public class CurlPageCornerController_FlipPage
         {
             static bool Prefix()

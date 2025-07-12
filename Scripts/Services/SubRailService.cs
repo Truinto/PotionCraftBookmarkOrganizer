@@ -82,8 +82,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Services
         public static Vector2? GetNextEmptySpaceOnRail(BookmarkRail rail, bool getMax = false)
         {
             var emptySegments = rail.GetEmptySegments(BookmarkSpaceType.Min);
-            var spawnHeight = typeof(BookmarkController).GetField("spawnHeight", BindingFlags.NonPublic | BindingFlags.Instance)
-                                                        .GetValue(rail.bookmarkController) as MinMaxFloat;
+            var spawnHeight = rail.bookmarkController.spawnHeight;
             if (emptySegments.Any()) return new Vector2((rail.inverseSpawnOrder || getMax) ? emptySegments.Last().max : emptySegments.First().min, spawnHeight.min);
             return null;
         }
@@ -168,9 +167,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Services
                 if (emptySegments.Any())
                 {
                     var x = rail.inverseSpawnOrder ? emptySegments.Last().max : emptySegments.First().min;
-                    var spawnHeight = typeof(BookmarkController).GetField("spawnHeight", BindingFlags.NonPublic | BindingFlags.Instance)
-                                                                .GetValue(bookmarkController) as MinMaxFloat;
-                    var y = spawnHeight.GetRandom();
+                    var y = bookmarkController.spawnHeight.GetRandom();
                     return new Tuple<BookmarkRail, Vector2>(rail, new Vector2(x, y));
                 }
             }

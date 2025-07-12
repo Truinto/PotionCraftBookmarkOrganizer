@@ -21,6 +21,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.3" ExcludeAssets="runtime" PrivateAssets="all" />
 		<PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
 		<PackageReference Include="BepInEx.Core" Version="5.*" />
 		<PackageReference Include="BepInEx.PluginInfoProps" Version="1.*" />
@@ -37,9 +38,9 @@
 		<Reference Private="false" Include="ThirdParty.DOTween" HintPath="$(LibFolder)\ThirdParty.DOTween.dll" />
 		<Reference Private="false" Include="Newtonsoft.Json" HintPath="$(LibFolder)\Newtonsoft.Json.dll" />
 		<Reference Private="false" Include="PotionCraft.Core" HintPath="$(LibFolder)\PotionCraft.Core.dll" />
-		<Reference Private="false" Include="PotionCraft.GamepadNavigation" HintPath="$(LibFolder)\PotionCraft.GamepadNavigation.dll" />
+		<Reference Private="false" Include="PotionCraft.GamepadNavigation" HintPath="$(LibFolder)\PotionCraft.GamepadNavigation.dll" Publicize="true" />
 		<Reference Private="false" Include="PotionCraft.InputSystem" HintPath="$(LibFolder)\PotionCraft.InputSystem.dll" />
-		<Reference Private="false" Include="PotionCraft.Scripts" HintPath="$(LibFolder)\PotionCraft.Scripts.dll" />
+		<Reference Private="false" Include="PotionCraft.Scripts" HintPath="$(LibFolder)\PotionCraft.Scripts.dll" Publicize="true" />
 		<Reference Private="false" Include="PotionCraft.Settings" HintPath="$(LibFolder)\PotionCraft.Settings.dll" />
 		<Reference Private="false" Include="PotionCraft.SoundSystem" HintPath="$(LibFolder)\PotionCraft.SoundSystem.dll" />
 		<Reference Private="false" Include="Unity.TextMeshPro" HintPath="$(LibFolder)\Unity.TextMeshPro.dll" />

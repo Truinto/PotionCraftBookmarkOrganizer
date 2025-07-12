@@ -28,7 +28,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
         private static Vector2 SavedStaticBookmarkPosition;
         private static Vector2 SavedBookmarkPosition;
 
-        [HarmonyPatch(typeof(Bookmark), "UpdateMovingState")]
+        [HarmonyPatch(typeof(Bookmark), nameof(Bookmark.UpdateMovingState))]
         public class Bookmark_UpdateMovingState
         {
             static void Postfix(Bookmark __instance, BookmarkMovingState value)
@@ -37,7 +37,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
             }
         }
 
-        [HarmonyPatch(typeof(Bookmark), "UpdateMoving")]
+        [HarmonyPatch(typeof(Bookmark), nameof(Bookmark.UpdateMoving))]
         public class Bookmark_UpdateMoving
         {
             static void Postfix(Bookmark __instance)

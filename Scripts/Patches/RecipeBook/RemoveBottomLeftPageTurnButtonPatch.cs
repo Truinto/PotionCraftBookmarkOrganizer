@@ -11,7 +11,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
 {
     public class RemoveBottomLeftPageTurnButtonPatch
     { 
-        [HarmonyPatch(typeof(Book), "Awake")]
+        [HarmonyPatch(typeof(Book), nameof(Book.Awake))]
         public class Book_Awake
         {
             static void Postfix(Book __instance)

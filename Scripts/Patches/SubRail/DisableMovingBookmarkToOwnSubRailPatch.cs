@@ -21,7 +21,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
 {
     public class DisableMovingBookmarkToOwnSubRailPatch
     { 
-        [HarmonyPatch(typeof(BookmarkRail), "Connect")]
+        [HarmonyPatch(typeof(BookmarkRail), nameof(BookmarkRail.Connect))]
         public class BookmarkRail_Connect
         {
             static bool Prefix(BookmarkRail __instance, Bookmark bookmark)
@@ -35,7 +35,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
             if (!StaticStorage.IsLoaded) return true;
             if (instance != StaticStorage.SubRail) return true;
             if (bookmark.CurrentMovingState == BookmarkMovingState.Idle) return true;
-            var bookmarksListBeforeMoving = typeof(Bookmark).GetField("bookmarksListBeforeMoving", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(bookmark) as List<Bookmark>;
+            var bookmarksListBeforeMoving = bookmark.bookmarksListBeforeMoving;
             var bookmarkIndex = bookmarksListBeforeMoving.IndexOf(bookmark);
 
             var isParent = RecipeBookService.IsBookmarkGroupParent(bookmarkIndex);
@@ -46,8 +46,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
             var newRail = instance.bookmarkController.rails.Except(new[] { instance })
                                                            .OrderBy(bRail => (mouseWorldPosition - (Vector2)bRail.transform.position).GetDistanceToLineSegment(bRail.bottomLine.Item1, bRail.bottomLine.Item2))
                                                            .First();
-            var emptySegmentsForMoving = typeof(Bookmark).GetField("emptySegmentsForMoving", BindingFlags.NonPublic | BindingFlags.Instance)
-                                                         .GetValue(bookmark) as Dictionary<BookmarkRail, List<MinMaxFloat>>;
+            var emptySegmentsForMoving = bookmark.emptySegmentsForMoving;
             if (newRail == bookmark.rail || emptySegmentsForMoving[newRail].Count == 0) return false;
             newRail.Connect(bookmark, newRail.GetMovingToNormalizedPosition(emptySegmentsForMoving[newRail], bookmark));
 

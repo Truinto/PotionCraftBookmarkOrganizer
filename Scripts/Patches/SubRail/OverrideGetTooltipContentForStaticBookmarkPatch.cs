@@ -20,7 +20,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
     /// </summary>
     public class OverrideGetTooltipContentForStaticBookmarkPatch
     { 
-        [HarmonyPatch(typeof(RecipeBookBookmarkTooltipContentContainer), "GetTooltipContent")]
+        [HarmonyPatch(typeof(RecipeBookBookmarkTooltipContentContainer), nameof(RecipeBookBookmarkTooltipContentContainer.GetTooltipContent))]
         public class RecipeBookBookmarkTooltipContentContainer_GetTooltipContent
         {
             static bool Prefix(ref TooltipContent __result, Bookmark ___bookmark)

@@ -14,7 +14,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
 {
     public class UpdateUIOnRecipeBookLoadPatch
     { 
-        [HarmonyPatch(typeof(RecipeBook), "OnLoad")]
+        [HarmonyPatch(typeof(RecipeBook), nameof(RecipeBook.OnLoad))]
         public class RecipeBook_OnLoad
         {
             //static bool Prefix()

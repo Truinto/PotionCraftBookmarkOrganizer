@@ -15,7 +15,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
 {
     public class RemoveSubBookmarksFromMainRailsOnLoadPatch
     { 
-        [HarmonyPatch(typeof(BookmarkController), "LoadFrom")]
+        [HarmonyPatch(typeof(BookmarkController), nameof(BookmarkController.LoadFrom))]
         public class BookmarkController_LoadFrom
         {
             static void Postfix(BookmarkController __instance)

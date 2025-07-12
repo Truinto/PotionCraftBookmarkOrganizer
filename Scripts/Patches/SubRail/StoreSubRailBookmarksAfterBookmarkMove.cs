@@ -18,7 +18,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
 {
     public class StoreSubRailBookmarksAfterBookmarkMove
     { 
-        [HarmonyPatch(typeof(Bookmark), "UpdateMovingState")]
+        [HarmonyPatch(typeof(Bookmark), nameof(Bookmark.UpdateMovingState))]
         public class Bookmark_UpdateMovingState
         {
             static void Postfix(BookmarkMovingState value)

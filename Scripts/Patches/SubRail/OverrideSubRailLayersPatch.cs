@@ -18,7 +18,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
 {
     public class OverrideSubRailLayersPatch
     { 
-        [HarmonyPatch(typeof(BookmarkRail), "SpawnLayers")]
+        [HarmonyPatch(typeof(BookmarkRail), nameof(BookmarkRail.SpawnLayers))]
         public class BookmarkRail_SpawnLayers
         {
             static bool Prefix(BookmarkRail __instance)
@@ -31,14 +31,12 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
         {
             if (SubRailService.IsInvisiRail(instance))
             {
-                var invisiLayers = new[] { StaticStorage.InvisiRailLayer };
-                typeof(BookmarkRail).GetField("layers", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(instance, invisiLayers);
+                instance.layers = new[] { StaticStorage.InvisiRailLayer };
                 return false;
             }
             if (!SubRailService.IsSubRail(instance)) return true;
 
-            var layers = StaticStorage.SubRailLayers.ToArray();
-            typeof(BookmarkRail).GetField("layers", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(instance, layers);
+            instance.layers = StaticStorage.SubRailLayers.ToArray();
 
             return false;
         }

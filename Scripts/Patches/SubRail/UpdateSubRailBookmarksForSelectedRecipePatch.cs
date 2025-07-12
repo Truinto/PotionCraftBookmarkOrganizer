@@ -23,7 +23,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
         /// <summary>
         /// This is only used when adding recipes or deleting recipes
         /// </summary>
-        [HarmonyPatch(typeof(Book), "UpdateCurrentPageIndex")]
+        [HarmonyPatch(typeof(Book), nameof(Book.UpdateCurrentPageIndex))]
         public class Book_UpdateCurrentPageIndex
         {
             static void Postfix(Book __instance, int index)
@@ -32,7 +32,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
             }
         }
 
-        [HarmonyPatch(typeof(CurlPageController), "OnCornerReleased")]
+        [HarmonyPatch(typeof(CurlPageController), nameof(CurlPageController.OnCornerReleased))]
         public class CurlPageController_OnCornerReleased
         {
             static bool Prefix(CurlPageController __instance, CurlPageCornerController releasedCorner)
@@ -41,7 +41,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
             }
         }
 
-        [HarmonyPatch(typeof(CurlPageController), "SetCornerHovered")]
+        [HarmonyPatch(typeof(CurlPageController), nameof(CurlPageController.SetCornerHovered))]
         public class CurlPageController_SetCornerHovered
         {
             static void Postfix(bool hovered)
@@ -50,7 +50,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
             }
         }
 
-        [HarmonyPatch(typeof(Book), "UpdateBackPage")]
+        [HarmonyPatch(typeof(Book), nameof(Book.UpdateBackPage))]
         public class Book_UpdateBackPage
         {
             static void Postfix(Book __instance, int backPageIndex)
@@ -63,7 +63,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
         /// This patch is only useful if Recipe Waypoints is installed. 
         /// Normally this method is not used for the recipe book but since it is a really simple way to go to a certain page it was used for Recipe Waypoints.
         /// </summary>
-        [HarmonyPatch(typeof(Book), "OpenPageAt")]
+        [HarmonyPatch(typeof(Book), nameof(Book.OpenPageAt))]
         public class Book_OpenPageAt
         {
             static void Postfix(Book __instance, int pageIndex)

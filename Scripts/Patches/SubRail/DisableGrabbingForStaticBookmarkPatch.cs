@@ -20,7 +20,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
     /// </summary>
     public class DisableGrabbingForStaticBookmarkPatch
     { 
-        [HarmonyPatch(typeof(Bookmark), "UpdateMovingState")]
+        [HarmonyPatch(typeof(Bookmark), nameof(Bookmark.UpdateMovingState))]
         public class Bookmark_UpdateMovingState
         {
             static bool Prefix(Bookmark __instance, BookmarkMovingState value)

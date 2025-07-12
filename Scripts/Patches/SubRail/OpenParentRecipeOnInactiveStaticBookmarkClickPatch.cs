@@ -22,7 +22,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
     /// </summary>
     public class OpenParentRecipeOnInactiveStaticBookmarkClickPatch
     {
-        [HarmonyPatch(typeof(BookmarkButtonInactive), "OnReleasePrimary")]
+        [HarmonyPatch(typeof(BookmarkButtonInactive), nameof(BookmarkButtonInactive.OnReleasePrimary))]
         public class InactiveBookmarkButton_OnReleasePrimary
         {
             static bool Prefix(BookmarkButtonInactive __instance)
@@ -46,7 +46,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
             if (bookmark.activeBookmarkButton.thisCollider.bounds.Contains(Managers.Input.controlsProvider.CurrentMouseWorldPosition))
                 bookmark.activeBookmarkButton.SetHovered(true);
 
-            typeof(BookmarkButtonInactive).GetField("grabConditionChecked", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(instance, true);
+            instance.grabConditionChecked = true;
 
             return false;
         }

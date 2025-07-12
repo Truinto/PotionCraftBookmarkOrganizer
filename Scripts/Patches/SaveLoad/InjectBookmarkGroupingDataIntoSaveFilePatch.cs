@@ -10,7 +10,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
 {
     public class InjectBookmarkGroupingDataIntoSaveFilePatch
     { 
-        [HarmonyPatch(typeof(SavedState), "ToJson")]
+        [HarmonyPatch(typeof(SavedState), nameof(SavedState.ToJson))]
         public class SavedState_ToJson
         {
             static void Postfix(ref string __result)

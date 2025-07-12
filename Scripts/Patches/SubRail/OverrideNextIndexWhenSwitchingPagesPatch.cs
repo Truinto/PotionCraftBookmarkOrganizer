@@ -22,7 +22,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
     /// </summary>
     public class OverrideNextIndexWhenSwitchingPagesPatch
     {
-        [HarmonyPatch(typeof(Book), "OnBookmarksRearranged")]
+        [HarmonyPatch(typeof(Book), nameof(Book.OnBookmarksRearranged))]
         public class Book_OnBookmarksRearranged
         {
             static void Postfix( Book __instance, List<int> newIndexes)
@@ -31,7 +31,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
             }
         }
 
-        [HarmonyPatch(typeof(Book), "GetNextPageIndex")]
+        [HarmonyPatch(typeof(Book), nameof(Book.GetNextPageIndex))]
         public class Book_GetNextPageIndex
         {
             static bool Prefix(ref int __result, Book __instance)
@@ -40,7 +40,7 @@ namespace PotionCraftBookmarkOrganizer.Scripts.Patches
             }
         }
 
-        [HarmonyPatch(typeof(Book), "GetPreviousPageIndex")]
+        [HarmonyPatch(typeof(Book), nameof(Book.GetPreviousPageIndex))]
         public class Book_GetPreviousPageIndex
         {
             static bool Prefix(ref int __result, Book __instance)
